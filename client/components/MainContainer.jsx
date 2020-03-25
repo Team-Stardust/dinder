@@ -17,7 +17,7 @@ class MainContainer extends Component {
       fetchingDetails: false,
       photos: [],
       rating: 0,
-      price: ''
+      price: '',
     };
   }
 
@@ -31,12 +31,11 @@ class MainContainer extends Component {
         }`,
         {
           headers: {
-            Authorization: `Bearer ${key.API_KEY}`
-          }
-        }
+            Authorization: `Bearer ${key.API_KEY}`,
+          },
+        },
       )
       .then(({ data }) => {
-        // console.log('IN SHOW MORE DETAIL DATA: ', data);
         // store the information to the state
         this.setState({
           fetchingDetails: true,
@@ -44,13 +43,13 @@ class MainContainer extends Component {
           photos: data.photos.slice(),
           rating: data.rating,
           review_count: data.review_count,
-          price: data.price
+          price: data.price,
         });
       })
-      .catch(err =>
-        console.log(
-          `App.showMoreDetail: get businesses details from yelp: Error: ${err}`
-        )
+      .catch((err) =>
+        console.error(
+          `App.showMoreDetail: get businesses details from yelp: Error: ${err}`,
+        ),
       );
   }
 
@@ -86,8 +85,7 @@ class MainContainer extends Component {
                 onClick={() => {
                   addFav();
                   this.resetState();
-                }}
-              >
+                }}>
                 <i className='fa fa-heart'></i>
               </button>
               <button
@@ -95,15 +93,13 @@ class MainContainer extends Component {
                 onClick={() => {
                   moveNext();
                   this.resetState();
-                }}
-              >
+                }}>
                 <i className='fa fa-times'></i>
               </button>
               <a
                 className='yelp'
                 href={currentBusiness.yelpurl}
-                target='_blank'
-              >
+                target='_blank'>
                 <i className='fa fa-info'></i>
               </a>
             </div>
@@ -126,16 +122,14 @@ class MainContainer extends Component {
               className='fav'
               onClick={() => {
                 addFav();
-              }}
-            >
+              }}>
               <i className='fa fa-heart'></i>
             </button>
             <button
               className='next'
               onClick={() => {
                 moveNext();
-              }}
-            >
+              }}>
               <i className='fa fa-times'></i>
             </button>
           </div>

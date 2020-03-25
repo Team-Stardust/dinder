@@ -6,15 +6,22 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/build/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   mode: process.env.NODE_ENV,
   devServer: {
     publicPath: '/build/',
     proxy: {
-      context: ['/favorites', '/login', '/assets', '/signup', '/signedin', '/signout'],
-      target: 'http://localhost:3000'
-      }
+      context: [
+        '/favorites',
+        '/login',
+        '/assets',
+        '/signup',
+        '/signedin',
+        '/signout',
+      ],
+      target: 'http://localhost:3000',
+    },
   },
   module: {
     rules: [
@@ -24,14 +31,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
       {
         test: /(css|scss)$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg|ico)$/,
@@ -41,11 +48,11 @@ module.exports = {
             loader: 'url-loader',
             options: {
               // if file is greater than the limit (bytes), file-loader is used as fallback
-              limit: 8192
-            }
-          }
-        ]
-      }
-    ]
-  }
+              limit: 8192,
+            },
+          },
+        ],
+      },
+    ],
+  },
 };

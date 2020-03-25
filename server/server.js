@@ -9,44 +9,46 @@ const sessionController = require('./controllers/sessionController.js');
 
 app.use(bodyParser.json());
 
-app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
+app.use(
+  '/assets',
+  express.static(path.join(__dirname, '../client/assets')),
+);
 
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
-app.get('/signedin', sessionController.isLoggedIn, (req, res)=> {
+app.get('/signedin', sessionController.isLoggedIn, (req, res) => {
   if (res.locals.verified === 'verified') {
-    // console.log('back in server before sending to front end', res.locals)
     res.status(200).send(res.locals);
   } else {
     res.status(200).sendFile(path.join(__dirname, '../index.html'));
   }
-})
+});
 
-app.use('/signout', sessionController.signOut, (req, res)=> {
-  if (res.locals.signedOut === "signedOut") {
+app.use('/signout', sessionController.signOut, (req, res) => {
+  if (res.locals.signedOut === 'signedOut') {
     res.status(200).send('signedOut');
   }
 });
 
-app.use('/signup', login)
+app.use('/signup', login);
 //route to login
 app.use('/login', login);
 // route to favorites
 app.use('/favorites', favorites);
 // route to home page
 app.get('/', (req, res) => {
-   res.status(200).sendFile(path.join(__dirname, '../index.html'));
+  res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
 app.use('*', (req, res) => {
   res.status(404).send('Route not found');
 });
 
-app.use((err, req, res, next)=> {
+app.use((err, req, res, next) => {
   const defaultErr = {
     message: `Global error handler caught the following error ${err}`,
-    status: 400, 
-  }
+    status: 400,
+  };
   const errorObj = Object.assign(err, defaultErr);
   return res.send(errorObj);
 });

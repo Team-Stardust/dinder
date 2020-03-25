@@ -1,4 +1,4 @@
-const pool = require ('../database.js');
+const pool = require('../database.js');
 
 // get favorites
 const getFavorites = (req, res, next) => {
@@ -10,7 +10,7 @@ const getFavorites = (req, res, next) => {
       if (err) return next(err);
       res.locals.favorites = favorites.rows;
       return next();
-    }
+    },
   );
 };
 
@@ -23,7 +23,7 @@ const addFavorite = (req, res, next) => {
     yelpid,
     yelpurl,
     rating,
-    phone
+    phone,
   } = req.body.business;
   const user = req.body.user;
 
@@ -35,7 +35,7 @@ const addFavorite = (req, res, next) => {
       else {
         return next();
       }
-    }
+    },
   );
 };
 
@@ -50,12 +50,12 @@ const deleteFavorite = (req, res, next) => {
       else {
         return next();
       }
-    }
+    },
   );
 };
 
 module.exports = {
   getFavorites,
   addFavorite,
-  deleteFavorite
+  deleteFavorite,
 };
